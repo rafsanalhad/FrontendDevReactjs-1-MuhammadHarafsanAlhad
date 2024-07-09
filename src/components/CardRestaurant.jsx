@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaRegStar, FaStar, FaStarHalf } from "react-icons/fa";
 import ButtonCardRestaurant from "./ButtonCardRestaurant";
-const CardRestaurant = ({ img, name, rating, city, price, openNow }) => {
+const CardRestaurant = ({ id, img, name, rating, city, price, openNow }) => {
   const [star, setStar] = useState([]);
   const renderStar = (rating) => {
     const tempStar = [];
@@ -56,7 +56,7 @@ const CardRestaurant = ({ img, name, rating, city, price, openNow }) => {
         <p className="ms-[2px]">{openNow ? 'Open Now' : 'Closed'}</p>
         </div>
       </div>
-        <ButtonCardRestaurant />
+        <ButtonCardRestaurant id={id} />
     </div>
   );
 };

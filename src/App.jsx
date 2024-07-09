@@ -243,7 +243,7 @@ function App() {
   }, [open, price, category]);
 
   return (
-    <div className="px-[100px] py-[30px]">
+    <div className="lg:px-[100px] md:px-[100px] sm:px-[30px] px-[30px] py-[30px]">
       <div className="text-header text-4xl mb-3">Restaurant</div>
       <div className="text-c-text text-[14px]">
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod <br />
@@ -271,10 +271,11 @@ function App() {
       </div>
 
       <h3 className="text-header text-xl mt-3 mb-3">All Restaurant</h3>
-      <div className="grid grid-cols-3">
+      <div className="grid lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1 grid-cols-1">
         {filteredData.map((item, index) => (
           <CardRestaurant
-            key={item.id}
+            key={index}
+            id={item.id}
             price={item.price}
             openNow={item.openNow}
             img={item.pictureId}
