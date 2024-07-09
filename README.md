@@ -2,22 +2,6 @@
 
 This is a starter template for creating a React application using Vite.
 
-## Table of Contents
-
-- [Introduction](#introduction)
-- [Features](#features)
-- [Prerequisites](#prerequisites)
-- [Getting Started](#getting-started)
-  - [Clone the Repository](#clone-the-repository)
-  - [Navigate to the Project Directory](#navigate-to-the-project-directory)
-  - [Install Dependencies](#install-dependencies)
-- [Development](#development)
-  - [Start the Development Server](#start-the-development-server)
-- [Build](#build)
-  - [Build for Production](#build-for-production)
-- [Deployment](#deployment)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Introduction
 
@@ -45,11 +29,19 @@ Follow these steps to get started with this project:
 
 Clone the repository to your local machine using:
 
-```bash
+```
 git clone https://github.com/rafsanalhad/FrontendDevReactjs-1-MuhammadHarafsanAlhad.git
+```
 
-```bash
+### Instalation
+
+
+```
 cd FrontendDevReactjs-1-MuhammadHarafsanAlhad
+```
 
-```bash
+#### Install All Dependencies
+
+```
 npm install
+```
