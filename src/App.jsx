@@ -9,10 +9,10 @@ function App() {
   const [data, setData] = useState([]);
   const filterPrice = [20000, 30000, 40000, 50000];
   const [filteredData, setFilteredData] = useState([]);
-  const categories = ["All", "Fast Food", "Pizza", "Pasta", "Burger"];
+  const categories = ["Fast Food", "Cafe", "Coffee Shop", "Restaurant", "Street Food"];
   const [open, setOpen] = useState(false);
-  const [price, setPrice] = useState(0);
-  const [category, setCategory] = useState("");
+  const [price, setPrice] = useState("Price");
+  const [category, setCategory] = useState("Categories");
   const additionalData = [
     {
       id: "rqdv5juczeskfw1e867",
@@ -170,8 +170,11 @@ function App() {
   const handlePrice = (e) => {
     const selectedPrice = e.target.value;
     setPrice(selectedPrice);
-  
   };
+  const handleCategory = (e) =>{
+    const selectedCategory = e.target.value;
+    setCategory(selectedCategory);
+  }
   useEffect(() => {
     getApi();
   }, []);
@@ -186,28 +189,57 @@ function App() {
     if (price == "Price") {
       filteredPrice = data;
     } else if (price == filterPrice[0]) {
-      filteredPrice = data.filter((item) => item.price >= filterPrice[0] && item.price < filterPrice[1]).sort((a, b) => a.price - b.price);
+      filteredPrice = data
+        .filter(
+          (item) => item.price >= filterPrice[0] && item.price < filterPrice[1]
+        )
+        .sort((a, b) => a.price - b.price);
     } else if (price == filterPrice[1]) {
-      filteredPrice = data.filter((item) => item.price >= filterPrice[1] && item.price < filterPrice[2]).sort((a, b) => a.price - b.price);
+      filteredPrice = data
+        .filter(
+          (item) => item.price >= filterPrice[1] && item.price < filterPrice[2]
+        )
+        .sort((a, b) => a.price - b.price);
     } else if (price == filterPrice[2]) {
-      filteredPrice = data.filter((item) => item.price >= filterPrice[2] && item.price < filterPrice[3]).sort((a, b) => a.price - b.price);
-    }else if (price == filterPrice[3]) {
-      filteredPrice = data.filter((item) => item.price >= filterPrice[3] && item.price < 60000).sort((a, b) => a.price - b.price);
+      filteredPrice = data
+        .filter(
+          (item) => item.price >= filterPrice[2] && item.price < filterPrice[3]
+        )
+        .sort((a, b) => a.price - b.price);
+    } else if (price == filterPrice[3]) {
+      filteredPrice = data
+        .filter((item) => item.price >= filterPrice[3] && item.price < 60000)
+        .sort((a, b) => a.price - b.price);
     }
+    let filteredCategory = [];
+    if(category == "All"){
+      filteredCategory = data;
+    }else{
+      filteredCategory = data.filter((item) => item.category == category);
+    }
+    console.log(price)
     const finalFilteredData = data.filter((item) => {
-      if (open && price !== "Price") {
-        return filteredOpenNow.includes(item) && filteredPrice.includes(item);
-      } else if (open) {
+      if (open == true && price == "Price" && category == "Categories") {
         return filteredOpenNow.includes(item);
-      } else if (price !== "Price") {
+      }else if(open == false && price !== "Price" && category == "Categories"){
         return filteredPrice.includes(item);
+      }else if(open == false && price == "Price" && category !== "Categories"){
+        return filteredCategory.includes(item);
+      }else if(open == true && price == "Price" && category !== "Categories"){
+        return filteredOpenNow.includes(item) && filteredCategory.includes(item);
+      }else if(open == true && price !== "Price" && category == "Categories"){
+        return filteredOpenNow.includes(item) && filteredPrice.includes(item);
+      }else if(open == false && price !== "Price" && category !== "Categories"){
+        return filteredPrice.includes(item) && filteredCategory.includes(item);
       }
-      return true; // Jika tidak ada filter yang aktif, kembalikan semua item
+      else if (open == true && price !== "Price" && category !== "Categories") {
+        return filteredOpenNow.includes(item) && filteredPrice.includes(item) && filteredCategory.includes(item);
+      }
+
+      return true;
     });
 
-
     setFilteredData(finalFilteredData);
-
   }, [open, price, category]);
 
   return (
@@ -235,7 +267,7 @@ function App() {
           type={"Price"}
           value={filterPrice}
         ></FilterDropdown>
-        <FilterDropdown type={"Categories"} value={categories}></FilterDropdown>
+        <FilterDropdown onChange={handleCategory} type={"Categories"} value={categories}></FilterDropdown>
       </div>
 
       <h3 className="text-header text-xl mt-3 mb-3">All Restaurant</h3>
