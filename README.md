@@ -1,11 +1,11 @@
 # Vite React Project
 
-This is a starter template for creating a React application using Vite.
+This is a Project for internship test sekawan media
 
 
 ## Introduction
 
-This project is a starter template for creating a React application using Vite. Vite is a build tool that aims to provide a faster and leaner development experience for modern web projects.
+This project is a frontend restaurant and was build with React js.
 
 ## Features
 
