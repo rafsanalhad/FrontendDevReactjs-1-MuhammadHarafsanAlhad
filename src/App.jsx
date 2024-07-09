@@ -244,7 +244,7 @@ function App() {
 
   return (
     <div className="lg:px-[100px] md:px-[100px] sm:px-[30px] px-[30px] py-[30px]">
-      <div className="text-header text-4xl mb-3">Restaurant</div>
+      <div className="text-header text-4xl mb-3">Restaurant Rafsan</div>
       <div className="text-c-text text-[14px]">
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod <br />
         aspernatur vero praesentium veniam nesciunt.
