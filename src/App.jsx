@@ -242,6 +242,11 @@ function App() {
     setFilteredData(finalFilteredData);
   }, [open, price, category]);
 
+  // const handleClear = () => {
+  //   setPrice("Price");
+  //   setCategory("Categories");
+  // }
+
   return (
     <div className="lg:px-[100px] md:px-[100px] sm:px-[30px] px-[30px] py-[30px]">
       <div className="text-header text-4xl mb-3">Restaurant Rafsan</div>
@@ -250,7 +255,8 @@ function App() {
         aspernatur vero praesentium veniam nesciunt.
       </div>
       <div className="w-full h-[1px] bg-[#d6d6d6] mt-5"></div>
-      <div className="flex flex-row items-center">
+      <div className="flex flex-row justify-between items-center h-[50px]">
+        <div className="flex flex-row items-center">
         <p className="text-[12px] text-c-text me-3">Filter By:</p>
         <input
           onClick={handleOpen}
@@ -260,7 +266,7 @@ function App() {
           value=""
         />
         <label htmlFor="checkbox" className="text-header me-3 text-[10px]">
-          Open Now <div className="w-full h-[1px] bg-[#d6d6d6]"></div>
+          Open Now
         </label>
         <FilterDropdown
           onChange={handlePrice}
@@ -268,6 +274,8 @@ function App() {
           value={filterPrice}
         ></FilterDropdown>
         <FilterDropdown onChange={handleCategory} type={"Categories"} value={categories}></FilterDropdown>
+        </div>
+        {/* <button onClick={handleClear} className="px-3 py-2 text-[10px] rounded-[4px] bg-[#171717] text-white">Clear All</button> */}
       </div>
 
       <h3 className="text-header text-xl mt-3 mb-3">All Restaurant</h3>
