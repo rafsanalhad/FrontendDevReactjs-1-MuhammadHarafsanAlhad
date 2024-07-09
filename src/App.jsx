@@ -7,11 +7,12 @@ import CardRestaurant from "./components/CardRestaurant";
 function App() {
   const [count, setCount] = useState(0);
   const [data, setData] = useState([]);
-  const [price, setPrice] = useState(0);
-  const filterPrice = [20000, 30000, 40000, 50000, 60000];
+  const filterPrice = [20000, 30000, 40000, 50000];
   const [filteredData, setFilteredData] = useState([]);
   const categories = ["All", "Fast Food", "Pizza", "Pasta", "Burger"];
   const [open, setOpen] = useState(false);
+  const [price, setPrice] = useState(0);
+  const [category, setCategory] = useState("");
   const additionalData = [
     {
       id: "rqdv5juczeskfw1e867",
@@ -166,23 +167,48 @@ function App() {
       setOpen(true);
     }
   };
-  const handlePrice = () => {
-    console.log("price");
+  const handlePrice = (e) => {
+    const selectedPrice = e.target.value;
+    setPrice(selectedPrice);
   
-  }
+  };
   useEffect(() => {
     getApi();
   }, []);
   useEffect(() => {
-    let filteredDataTemp = [];
+    let filteredOpenNow = [];
     if (open) {
-      filteredDataTemp = data.filter((item) => item.openNow == true);
+      filteredOpenNow = data.filter((item) => item.openNow == true);
     } else {
-      filteredDataTemp = data;
+      filteredOpenNow = data;
     }
-    setFilteredData(filteredDataTemp);
-  }, [open]);
+    let filteredPrice = [];
+    if (price == "Price") {
+      filteredPrice = data;
+    } else if (price == filterPrice[0]) {
+      filteredPrice = data.filter((item) => item.price >= filterPrice[0] && item.price < filterPrice[1]).sort((a, b) => a.price - b.price);
+    } else if (price == filterPrice[1]) {
+      filteredPrice = data.filter((item) => item.price >= filterPrice[1] && item.price < filterPrice[2]).sort((a, b) => a.price - b.price);
+    } else if (price == filterPrice[2]) {
+      filteredPrice = data.filter((item) => item.price >= filterPrice[2] && item.price < filterPrice[3]).sort((a, b) => a.price - b.price);
+    }else if (price == filterPrice[3]) {
+      filteredPrice = data.filter((item) => item.price >= filterPrice[3] && item.price < 60000).sort((a, b) => a.price - b.price);
+    }
+    const finalFilteredData = data.filter((item) => {
+      if (open && price !== "Price") {
+        return filteredOpenNow.includes(item) && filteredPrice.includes(item);
+      } else if (open) {
+        return filteredOpenNow.includes(item);
+      } else if (price !== "Price") {
+        return filteredPrice.includes(item);
+      }
+      return true; // Jika tidak ada filter yang aktif, kembalikan semua item
+    });
 
+
+    setFilteredData(finalFilteredData);
+
+  }, [open, price, category]);
 
   return (
     <div className="px-[100px] py-[30px]">
@@ -204,7 +230,11 @@ function App() {
         <label htmlFor="checkbox" className="text-header me-3 text-[10px]">
           Open Now <div className="w-full h-[1px] bg-[#d6d6d6]"></div>
         </label>
-        <FilterDropdown onChange={handlePrice} type={"Price"} value={filterPrice}></FilterDropdown>
+        <FilterDropdown
+          onChange={handlePrice}
+          type={"Price"}
+          value={filterPrice}
+        ></FilterDropdown>
         <FilterDropdown type={"Categories"} value={categories}></FilterDropdown>
       </div>
 
@@ -217,7 +247,7 @@ function App() {
             openNow={item.openNow}
             img={item.pictureId}
             rating={item.rating}
-            city={item.city}
+            city={item.category}
             name={item.name}
           />
         ))}
