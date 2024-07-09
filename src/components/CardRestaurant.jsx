@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaRegStar, FaStar, FaStarHalf } from "react-icons/fa";
 import ButtonCardRestaurant from "./ButtonCardRestaurant";
-const CardRestaurant = ({ img, name, rating, city }) => {
+const CardRestaurant = ({ img, name, rating, city, price, openNow }) => {
   const [star, setStar] = useState([]);
   const renderStar = (rating) => {
     const tempStar = [];
@@ -42,12 +42,19 @@ const CardRestaurant = ({ img, name, rating, city }) => {
         </div>
       ))}
       </div>
-      <div className="mt-2 flex flex-row text-[8px]">
+      <div className="mt-2 flex flex-row justify-between text-[8px]">
+        <div className="flex flex-row">
         <p>{city}</p>
         <div className="flex flex-row items-center" style={{marginLeft: '1px'}}>
         <div className="w-1 h-1 bg-[#bbb] rounded-full"></div>
         </div>
-        {/* <p>{price}</p> */}
+        <p className="ms-[2px]">Rp.{price}</p>
+        
+        </div>
+        <div className="flex flex-row">
+        <div className={openNow ? `w-[10px] h-[10px] rounded-full bg-[#01be11]` : 'w-[10px] h-[10px]] rounded-full bg-[#800b0b]'}></div>
+        <p className="ms-[2px]">{openNow ? 'Open Now' : 'Closed'}</p>
+        </div>
       </div>
         <ButtonCardRestaurant />
     </div>
